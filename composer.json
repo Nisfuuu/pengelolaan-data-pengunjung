@@ -1,5 +1,9 @@
 {
   "require": {
-    "tecnickcom/tcpdf": "^6.4"
-  }
+    "tecnickcom/tcpdf": "^6.4",
+    "endroid/qr-code": "^6.0",
+    "phpqrcode/phpqrcode": "^1.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

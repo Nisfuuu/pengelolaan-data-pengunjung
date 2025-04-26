@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit9b715eea9ba573833974a4c60540dc87
 {
+    public static $prefixLengthsPsr4 = array (
+        'D' => 
+        array (
+            'DASPRiD\\Enum\\' => 13,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'DASPRiD\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Datamatrix' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/datamatrix.php',
@@ -25,6 +39,8 @@ class ComposerStaticInit9b715eea9ba573833974a4c60540dc87
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9b715eea9ba573833974a4c60540dc87::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9b715eea9ba573833974a4c60540dc87::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit9b715eea9ba573833974a4c60540dc87::$classMap;
 
         }, null, ClassLoader::class);

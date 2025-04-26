@@ -17,26 +17,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<h2>Tambah Pengunjung</h2>
-<form method="POST">
-    <label>Nama:</label><br>
-    <input type="text" name="nama" required><br><br>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Pengunjung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-300 to-indigo-400 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
 
-    <label>Alamat:</label><br>
-    <input type="text" name="alamat" required><br><br>
+    <div class="w-full max-w-2xl bg-white/50 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">Tambah Pengunjung</h2>
 
-    <label>Tanggal Kunjungan:</label><br>
-    <input type="date" name="tanggal_kunjungan" required><br><br>
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Nama</label>
+                <input type="text" name="nama" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-    <label>Email:</label><br>
-    <input type="email" name="email"><br><br>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Alamat</label>
+                <input type="text" name="alamat" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-    <label>No HP:</label><br>
-    <input type="text" name="no_hp"><br><br>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Tanggal Kunjungan</label>
+                <input type="date" name="tanggal_kunjungan" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-    <label>Catatan Kunjungan:</label><br>
-    <textarea name="catatan"></textarea><br><br>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Email</label>
+                <input type="email" name="email" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-    <button type="submit">Simpan</button>
-</form>
-<a href="index.php">← Kembali</a>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">No HP</label>
+                <input type="text" name="no_hp" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Catatan Kunjungan</label>
+                <textarea name="catatan" rows="3" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+
+            <div class="flex justify-between">
+                <a href="index.php" class="text-blue-600 dark:text-blue-400 hover:underline">← Kembali</a>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200">Simpan</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Auto-enable dark mode jika sistem mendukung
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    
+</body>
+</html>
