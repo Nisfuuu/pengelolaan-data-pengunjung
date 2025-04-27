@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
 
     mysqli_query($conn, "UPDATE pengunjung SET nama='$nama', alamat='$alamat', tanggal_kunjungan='$tanggal' WHERE id=$id");
     header("Location: index.php");
+    exit;
 }
 ?>
 
@@ -19,47 +20,56 @@ if (isset($_POST['submit'])) {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Pengunjung</title>
-    <!-- Tambahkan link ke CDN Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-4">
+<body class="min-h-screen bg-gradient-to-br from-blue-300 to-indigo-400 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
 
-    <!-- Container Form -->
-    <div class="w-full max-w-lg bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl space-y-6">
+    <div class="w-full max-w-2xl bg-white/50 dark:bg-gray-800/60 backdrop-blur-md p-8 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">Edit Pengunjung</h2>
 
-        <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white">Edit Pengunjung</h2>
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Nama</label>
+                <input type="text" name="nama" value="<?= $data['nama']; ?>" required 
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                    bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-        <!-- Formulir untuk mengedit pengunjung -->
-        <form method="post" action="">
-            <div class="space-y-4">
-                <!-- Input Nama -->
-                <div>
-                    <label for="nama" class="text-lg text-gray-700 dark:text-gray-300">Nama:</label>
-                    <input type="text" name="nama" id="nama" value="<?= $data['nama']; ?>" required class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Alamat</label>
+                <textarea name="alamat" rows="3" required 
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                    bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"><?= $data['alamat']; ?></textarea>
+            </div>
 
-                <!-- Input Alamat -->
-                <div>
-                    <label for="alamat" class="text-lg text-gray-700 dark:text-gray-300">Alamat:</label>
-                    <textarea name="alamat" id="alamat" required class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"><?= $data['alamat']; ?></textarea>
-                </div>
+            <div>
+                <label class="block text-gray-700 dark:text-gray-300">Tanggal Kunjungan</label>
+                <input type="date" name="tanggal_kunjungan" value="<?= $data['tanggal_kunjungan']; ?>" required 
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                    bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
 
-                <!-- Input Tanggal Kunjungan -->
-                <div>
-                    <label for="tanggal_kunjungan" class="text-lg text-gray-700 dark:text-gray-300">Tanggal Kunjungan:</label>
-                    <input type="date" name="tanggal_kunjungan" id="tanggal_kunjungan" value="<?= $data['tanggal_kunjungan']; ?>" required class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <!-- Tombol Update dan Batal -->
-                <div class="flex justify-between items-center">
-                    <button type="submit" name="submit" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Update</button>
-                    <a href="index.php" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">Batal</a>
-                </div>
+            <div class="flex justify-between pt-4">
+                <a href="index.php" class="text-blue-600 dark:text-blue-400 hover:underline">← Kembali</a>
+                <button type="submit" name="submit" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200">
+                    Update
+                </button>
             </div>
         </form>
     </div>
+
+    <script>
+        // Auto-enable dark mode jika sistem mendukung
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 
 </body>
 </html>

@@ -21,6 +21,8 @@
         </div>
 
         <canvas id="pengunjungChart" width="600" height="300"></canvas>
+        <a href="index.php" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Kembali ke Index</a>
+
     </div>
 
     <script>

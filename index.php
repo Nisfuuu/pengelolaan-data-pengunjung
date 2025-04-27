@@ -65,48 +65,64 @@ $result = mysqli_query($conn, $query);
         }
     </style>
 </head>
-<body class="bg-gradient-to-r from-green-400 to-blue-500 transition-colors duration-500">
+<body class="bg-gradient-to-r from-green-400 to-blue-500 transition-colors duration-500 pt-20">
 
-    <div class="container mx-auto px-4 py-6">
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-teal-400 to-purple-500 bg-opacity-40 backdrop-blur-lg p-6 rounded-xl shadow-xl mb-8 text-center">
-            <h1 class="text-4xl font-semibold text-white mb-2">Data Pengunjung</h1>
-            <p class="text-white">Selamat datang, <span class="font-bold"><?= $_SESSION['username']; ?></span>!</p>
-        </div>
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-green-400 to-blue-500 p-4 flex items-center justify-between z-50">
+    <div class="text-white text-xl font-bold">Data Pengunjung</div>
 
-        <!-- Tombol Navigasi -->
-        <div class="flex flex-wrap justify-center gap-4 mb-6">
-            <a href="tambah.php" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition">+ Tambah Pengunjung</a>
-            <a href="export_excel.php" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition">Export Excel</a>
-            <a href="export_pdf.php" target="_blank" class="bg-red-500 text-white px-6 py-3 rounded-md hover:bg-red-600 transition">Export PDF</a>
-            <a href="statistik.php" class="bg-yellow-500 text-white px-6 py-3 rounded-md hover:bg-yellow-600 transition">📊 Statistik</a>
-            <a href="logout.php" class="bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-600 transition">Logout</a>
-            <button id="dark-mode-toggle" class="bg-gray-800 text-white px-6 py-3 rounded-md hover:bg-gray-700 transition">Toggle Dark Mode</button>
-        </div>
+    <!-- Hamburger Button -->
+    <button id="menu-toggle" class="md:hidden text-white text-3xl focus:outline-none">
+        ☰
+    </button>
+
+    <!-- Menu -->
+    <div id="menu" class="gap-2 hidden md:flex absolute md:static top-16 right-4 bg-white  md:bg-transparent shadow-md md:shadow-none rounded p-4 md:p-0 w-64 md:w-auto flex-col md:flex-row space-y-2 md:space-y-0">
+        <a href="tambah.php" class="block text-center  px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">+ Tambah Pengunjung</a>
+        <a href="export_excel.php" class="block text-center  px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Export Excel</a>
+        <a href="export_pdf.php" class="block text-center  px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Export PDF</a>
+        <a href="statistik.php" class="block text-center  px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Statistik</a>
+        <a href="logout.php" class="block text-center px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">Logout</a>
+        <button id="dark-mode-toggle" class="block text-center px-4 py-2 bg-black text-white rounded hover:bg-gray-800 w-full md:w-auto">🌜/☀️</button>
+    </div>
+</nav>
+
+
+
+</div>
 
         <!-- Form Pencarian & Filter -->
-        <form method="GET" action="" class="mb-8 bg-gradient-to-r from-teal-400 to-purple-500 bg-opacity-40 backdrop-blur-lg p-6 rounded-xl shadow-xl">
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-                <input type="text" name="cari" placeholder="Cari nama..." value="<?= isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : '' ?>"
-                    class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
-                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">Cari</button>
-                <a href="index.php" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">Reset</a>
-            </div>
+  <form method="GET" action="" class="mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-opacity-40 backdrop-blur-lg p-6 rounded-xl shadow-xl">
+    <div class="flex flex-col items-center justify-center gap-4 md:flex-row">
+        <!-- Input Cari -->
+        <input type="text" name="cari" placeholder="Cari nama..." value="<?= isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : '' ?>"
+            class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-64">
 
-            <div class="mt-4 flex flex-col md:flex-row items-center justify-center gap-4">
-                <div class="flex items-center gap-2">
-                    <label class="text-white">Dari:</label>
-                    <input type="date" name="tanggal_mulai" value="<?= $_GET['tanggal_mulai'] ?? '' ?>"
-                        class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="flex items-center gap-2">
-                    <label class="text-white">Sampai:</label>
-                    <input type="date" name="tanggal_selesai" value="<?= $_GET['tanggal_selesai'] ?? '' ?>"
-                        class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">Filter</button>
+        <!-- Tombol Cari & Reset -->
+        <div class="flex flex-row gap-2 w-full md:w-auto justify-center">
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">Cari</button>
+            <a href="index.php" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">Reset</a>
+        </div>
+
+        <!-- Input Tanggal Dari & Sampai -->
+        <div class="flex flex-row gap-4 w-full md:w-auto justify-center md:mb-8">
+            <div class="flex flex-col">
+                <label class="text-white mb-1  text-center">Dari</label>
+                <input type="date" name="tanggal_mulai" value="<?= $_GET['tanggal_mulai'] ?? '' ?>"
+                    class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-        </form>
+            <div class="flex flex-col">
+                <label class="text-white mb-1 text-center">Sampai</label>
+                <input type="date" name="tanggal_selesai" value="<?= $_GET['tanggal_selesai'] ?? '' ?>"
+                    class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+        </div>
+
+        <!-- Tombol Filter -->
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">Filter</button>
+    </div>
+</form>
+
 
         <!-- Tabel Data -->
         <div class="overflow-x-auto">
@@ -114,11 +130,11 @@ $result = mysqli_query($conn, $query);
             <table class="hidden md:table min-w-full bg-white bg-opacity-40 backdrop-blur-lg border border-gray-300 rounded-xl overflow-hidden shadow-lg">
                 <thead class="bg-gradient-to-r from-teal-500 to-purple-500 text-white">
                     <tr>
-                        <th class="py-3 px-6 text-left">No</th>
-                        <th class="py-3 px-6 text-left">Nama</th>
-                        <th class="py-3 px-6 text-left">Alamat</th>
-                        <th class="py-3 px-6 text-left">Tanggal Kunjungan</th>
-                        <th class="py-3 px-6 text-left">Aksi</th>
+                        <th class="py-3 px-6 text-center">No</th>
+                        <th class="py-3 px-6 text-center">Nama</th>
+                        <th class="py-3 px-6 text-center">Alamat</th>
+                        <th class="py-3 px-6 text-center">Tanggal Kunjungan</th>
+                        <th class="py-3 px-6 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,11 +144,11 @@ $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <tr class="border-t">
-                        <td class="py-3 px-6"><?= $no++; ?></td>
-                        <td class="py-3 px-6"><?= $row['nama']; ?></td>
-                        <td class="py-3 px-6"><?= $row['alamat']; ?></td>
-                        <td class="py-3 px-6"><?= $row['tanggal_kunjungan']; ?></td>
-                        <td class="py-3 px-6 space-x-2">
+                        <td class="py-3 px-6 text-center"><?= $no++; ?></td>
+                        <td class="py-3 px-6 text-center"><?= $row['nama']; ?></td>
+                        <td class="py-3 px-6 text-center"><?= $row['alamat']; ?></td>
+                        <td class="py-3 px-6 text-center"><?= $row['tanggal_kunjungan']; ?></td>
+                        <td class="py-3 px-6 space-x-2 text-center">
                             <a href="detail.php?id=<?= $row['id']; ?>" class="text-blue-500 hover:underline">Detail</a>
                             <a href="edit.php?id=<?= $row['id']; ?>" class="text-yellow-500 hover:underline">Edit</a>
                             <a href="hapus.php?id=<?= $row['id']; ?>" onclick="return confirm('Yakin ingin menghapus?')" class="text-red-500 hover:underline">Hapus</a>
@@ -176,7 +192,7 @@ $result = mysqli_query($conn, $query);
         </div>
 
         <!-- Pagination -->
-        <div class="mt-8 flex flex-wrap justify-center gap-2">
+        <div class="mt-8 mb-8 flex flex-wrap justify-center gap-2">
             <?php for ($i = 1; $i <= $total_halaman; $i++) : ?>
                 <a href="?halaman=<?= $i; ?><?= isset($_GET['cari']) ? '&cari=' . $_GET['cari'] : ''; ?>"
                     class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"><?= $i; ?></a>
@@ -186,12 +202,31 @@ $result = mysqli_query($conn, $query);
 
     <!-- Script Dark Mode -->
     <script>
-        const toggle = document.getElementById("dark-mode-toggle");
-        const body = document.body;
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
 
-        toggle.addEventListener("click", function () {
-            body.classList.toggle("dark-active");
-        });
-    </script>
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+            if (window.innerWidth < 768) {
+                menu.classList.add('hidden');
+            }
+        }
+    });
+
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-active');
+    });
+</script>
+
+
+
+
+
 </body>
 </html>
